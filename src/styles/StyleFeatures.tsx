@@ -160,6 +160,31 @@ const InputTextField = Styled.TextInput`
   width:100%;
 `;
 
+const ShortRoundWrapBox = Styled.View`
+  background-color: ${(props: any) => props?.bgColor};
+  border-radius:${(props: any) => props?.bgRadius};
+  border-color:${(props: any) => props?.brColor};
+  border-width:${(props: any) => (props?.brWid ? props?.brWid : 1)};
+  align-items:center;
+  justify-content:center;
+  padding-horizontal:${(props: any) => (props?.phGap ? props?.phGap : 0)}; 
+  padding-vertical:${(props: any) => (props?.pvGap ? props?.pvGap : 0)}; 
+`;
+
+const BottomElevationWrapBox = Styled.View`
+  background-color:${(props: any) =>
+    props?.bgGap ? props?.bgGap : Colors.whiteColor};
+  shadow-color: '#171717';
+  shadow-offset:{
+    width: 0,
+    height: 1
+  };
+  shadow-opacity: 0.8;
+  shadow-radius: 1;
+  elevation:1;
+`;
+
+
 
 export {
   ViewWrapper,
@@ -184,4 +209,6 @@ export {
   InputTextField,
   BottomWrapBox,
   FlexSAWrapper,
+  BottomElevationWrapBox,
+  ShortRoundWrapBox
 };

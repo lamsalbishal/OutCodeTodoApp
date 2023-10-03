@@ -3,7 +3,9 @@ import { Container } from '../styles/StyleFeatures'
 
 const HomeScreen = () => {
     return (
-        <Container></Container>
+        <Container>
+            
+        </Container>
     )
 }
 
