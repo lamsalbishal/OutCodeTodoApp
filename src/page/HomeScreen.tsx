@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { ScrollView, TouchableOpacity, View, StyleSheet } from 'react-native';
-
+import { ScrollView, View, StyleSheet } from 'react-native';
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
@@ -11,23 +10,27 @@ import {
     PaddingAllGap,
     PaddingHVGap,
     Text,
-    ViewWrapper,
+
 } from '../styles/StyleFeatures';
 import ListComponent from '../features/ListComponent';
 import { CustomButton } from '../component/CustomButton';
 import { navigate } from '../utils/navUtils';
 import { Colors } from '../const/Colors';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import NoRecordFound from '../component/NoRecordFound';
+import NoteBox from '../component/HomeComponent/NoteBox';
+
 
 
 
 
 const HomeScreen = () => {
+    const noteList = useSelector((state: RootState) => state.persistedReducer.noteReducer.notestore);
 
     const renderItems = ({ item, index }: { item: any; index: any }) => {
         return (
-            <ViewWrapper key={index}>
-
-            </ViewWrapper>
+            <NoteBox item={item} />
         );
     };
 
@@ -38,15 +41,21 @@ const HomeScreen = () => {
             </PaddingHVGap>
             <HrLine />
             <ScrollView showsVerticalScrollIndicator={false}>
-                <PaddingHVGap phGap={wp(3)} pvGap={hp(1.5)}>
-                    <PaddingAllGap pbGap={hp(10)}>
-                        <ListComponent
-                            data={[]}
-                            renderItem={renderItems}
-                            keyExtractor={item => item.id}
-                        />
+                {noteList.length > 0 ?
+                    <PaddingHVGap phGap={wp(3)}>
+                        <PaddingAllGap pbGap={hp(10)}>
+                            <ListComponent
+                                data={noteList}
+                                renderItem={renderItems}
+                                keyExtractor={item => item.id}
+                            />
+                        </PaddingAllGap>
+                    </PaddingHVGap>
+                    :
+                    <PaddingAllGap ptGap={hp(30)}>
+                        <NoRecordFound />
                     </PaddingAllGap>
-                </PaddingHVGap>
+                }
             </ScrollView>
             <View style={Styles.bottomTab}>
                 <CustomButton

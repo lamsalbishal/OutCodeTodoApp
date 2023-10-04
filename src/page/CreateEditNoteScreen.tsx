@@ -26,6 +26,7 @@ import moment from 'moment';
 import { Colors } from '../const/Colors';
 import { createNoteStore } from '../store/reducers/NoteSlice';
 import { goBack } from '../utils/navUtils';
+import { genRandomId } from '../features/CommonFeature';
 
 
 const CreateEditNoteScreen = ({ route }: { route: any }) => {
@@ -37,12 +38,17 @@ const CreateEditNoteScreen = ({ route }: { route: any }) => {
         note: Yup.string().required('Note is required'),
     });
 
+
+
+
     const createNewEditNote = async (values: any) => {
         const CurrentDate = moment().format();
         const noteObj = {
+            id: genRandomId(6),
             note: values.note,
             status: false,
-            timeStamp: CurrentDate
+            timeStamp: CurrentDate,
+            updateTimeStamp: CurrentDate,
         }
         dispatch(createNoteStore(noteObj))
         ToastAndroid.show('Create Successfully', ToastAndroid.BOTTOM)
