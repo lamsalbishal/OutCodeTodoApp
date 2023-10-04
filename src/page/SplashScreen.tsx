@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Container, Text } from '../styles/StyleFeatures'
 import { navigationRelace } from '../utils/navUtils'
 import { FlexJCWrapper } from '../styles/StyleFeatures'
+import { Colors } from '../const/Colors'
 
 const SplashScreen = () => {
     useEffect(() => {
@@ -12,7 +13,7 @@ const SplashScreen = () => {
     return (
         <Container>
             <FlexJCWrapper>
-                <Text middle>Todo App</Text>
+                <Text heavy="bold" middle exlarge crColor={Colors.mainColor}>Todo App</Text>
             </FlexJCWrapper>
         </Container>
     )

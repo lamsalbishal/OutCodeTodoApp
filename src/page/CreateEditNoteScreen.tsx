@@ -2,15 +2,13 @@
 
 
 import React, { useEffect, useState } from 'react';
-import { ScrollView } from 'react-native';
-import { ActivityIndicator, TouchableOpacity } from 'react-native';
+import { ScrollView, TextInput, ToastAndroid } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 
 import {
     Container,
-    FlexRAWrap,
     InputTextField,
     PaddingAllGap,
     PaddingHVGap,
@@ -21,9 +19,13 @@ import {
     heightPercentageToDP as hp,
     widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+
 import Toolbar from '../component/Toolbar';
 import { CustomButton } from '../component/CustomButton';
+import moment from 'moment';
+import { Colors } from '../const/Colors';
+import { createNoteStore } from '../store/reducers/NoteSlice';
+import { goBack } from '../utils/navUtils';
 
 
 const CreateEditNoteScreen = ({ route }: { route: any }) => {
@@ -32,12 +34,19 @@ const CreateEditNoteScreen = ({ route }: { route: any }) => {
 
 
     const createSchema = Yup.object().shape({
-        name: Yup.string().required('Name is required'),
-        description: Yup.string().required('Description is required'),
+        note: Yup.string().required('Note is required'),
     });
 
     const createNewEditNote = async (values: any) => {
-
+        const CurrentDate = moment().format();
+        const noteObj = {
+            note: values.note,
+            status: false,
+            timeStamp: CurrentDate
+        }
+        dispatch(createNoteStore(noteObj))
+        ToastAndroid.show('Create Successfully', ToastAndroid.BOTTOM)
+        goBack()
     };
 
 
@@ -52,8 +61,8 @@ const CreateEditNoteScreen = ({ route }: { route: any }) => {
                         validateOnBlur={false}
                         enableReinitialize
                         initialValues={{
-                            name: status ? updateData?.name : '',
-                            description: status ? updateData?.description : '',
+                            note: status ? updateData?.note : '',
+
                         }}
                         onSubmit={values => createNewEditNote(values)}>
                         {({
@@ -65,51 +74,33 @@ const CreateEditNoteScreen = ({ route }: { route: any }) => {
                             isSubmitting,
                         }) => (
                             <ViewWrapper>
-                                <PaddingAllGap ptGap={hp(3)}>
+
+                                <Text small ptGap={hp(3)}>For your reminder, save a note.</Text>
+                                <PaddingAllGap ptGap={hp(2)}>
+
+
                                     <InputTextField
-                                        iconNo={1}
-                                        iconName="user"
-                                        handleChange={handleChange('name')}
-                                        handleBlur={handleBlur('name')}
-                                        label="Name"
-                                        keyboardType="default"
-                                        secureTextEntry={false}
-                                        value={values.name}
+                                        bwGap={1}
+                                        plGap={wp(5)}
+                                        brGap={hp(1)}
+                                        onChangeText={handleChange('note')}
+                                        handleBlur={handleBlur('note')}
+                                        placeholder="Create a note"
+                                        marginBottom={errors.note ? 5 : 18}
+                                        value={values.note}
+                                        multiline
 
                                     />
 
-                                    {errors.name && (
+                                    {errors.note && (
                                         <Text
                                             crColor={Colors.redColor}
                                             ptGap={hp(0.5)}
                                             plGap={wp(3)}>
-                                            {errors.name}
+                                            {errors.note}
                                         </Text>
                                     )}
                                 </PaddingAllGap>
-
-                                <PaddingAllGap ptGap={hp(3)}>
-                                    <InputTextField
-                                        iconName="description"
-                                        handleChange={handleChange('description')}
-                                        handleBlur={handleBlur('description')}
-                                        label="Description"
-                                        keyboardType="default"
-                                        secureTextEntry={false}
-                                        value={values.description}
-
-                                    />
-
-                                    {errors.description && (
-                                        <Text
-                                            crColor={Colors.redColor}
-                                            ptGap={hp(0.5)}
-                                            plGap={wp(3)}>
-                                            {errors.description}
-                                        </Text>
-                                    )}
-                                </PaddingAllGap>
-
 
                                 <PaddingAllGap ptGap={hp(3)}>
                                     <CustomButton

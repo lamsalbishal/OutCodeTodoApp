@@ -12,6 +12,7 @@ import {
 
 type RootStackParamList = {
     HomeScreen: any;
+    CreateEditNoteScreen: any;
 };
 
 export const navigationRef = createNavigationContainerRef<RootStackParamList>();

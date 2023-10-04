@@ -21,7 +21,7 @@ width:${(props: any) => (props?.wGap ? props?.wGap : 0)}
 
 const Container = Styled.View`
   flex: 1;
-  background-color:${Colors.lightDimWhiteColor};
+  background-color:${Colors.whiteColor};
 `;
 
 const FlexSBWrapper = Styled.View`
@@ -105,7 +105,7 @@ const Text = Styled.Text`
   font-family:${(props: any) =>
     props.heavy ? 'OpenSans-SemiBold' : 'OpenSans-Regular'};
   color:${(props: any) => (props?.crColor ? props?.crColor : '#000000')};
-  // font-weight:${(props: any) => (props.heavy ? 'bold' : 'normal')};
+  font-weight:${(props: any) => (props.heavy ? props.heavy : 'normal')};
   padding-top:${(props: any) => (props?.ptGap ? props?.ptGap : 0)};
   padding-left:${(props: any) => (props?.plGap ? props?.plGap : 0)};
   text-transform: ${(props: any) => (props?.ttGap ? props?.ttGap : 'none')};
@@ -143,28 +143,31 @@ const VtLine = Styled.View`
 `;
 
 const BorderWithRadius = Styled.View`
-  border-width:1;
+  border-width:1px;
   border-color:${(props: any) =>
-    props?.crGap ? props?.crGap : Colors.blackColor}
-  border-radius:${(props: any) => (props?.brGap ? props?.brGap : 0)}; 
+    props?.crGap ? props?.crGap : Colors.blackColor};
+  border-radius:${(props: any) => (props?.brGap ? props?.brGap : 0)}px; 
   padding-horizontal:${(props: any) => (props?.phGap ? props?.phGap : 0)}; 
   padding-vertical:${(props: any) => (props?.pvGap ? props?.pvGap : 0)};
   background-color:${(props: any) =>
-    props?.bgGap ? props?.bgGap : Colors.whiteColor}
+    props?.bgGap ? props?.bgGap : Colors.whiteColor};
   
 `;
 
 const InputTextField = Styled.TextInput`
   padding-vertical:${hp(1.7)};
   padding-left:${(props: any) => (props?.plGap ? props?.plGap : 0)};
-  width:100%;
+  background-color:${(props: any) =>
+    props?.bgGap ? props?.bgGap : Colors.lightDimWhiteColor};
+    border-radius:${(props: any) => (props?.brGap ? props?.brGap : 0)}px; 
+  
 `;
 
 const ShortRoundWrapBox = Styled.View`
   background-color: ${(props: any) => props?.bgColor};
-  border-radius:${(props: any) => props?.bgRadius};
+  border-radius:${(props: any) => props?.bgRadius}px;
   border-color:${(props: any) => props?.brColor};
-  border-width:${(props: any) => (props?.brWid ? props?.brWid : 1)};
+  border-width:${(props: any) => (props?.brWid ? props?.brWid : 1)}px;
   align-items:center;
   justify-content:center;
   padding-horizontal:${(props: any) => (props?.phGap ? props?.phGap : 0)}; 
@@ -176,11 +179,11 @@ const BottomElevationWrapBox = Styled.View`
     props?.bgGap ? props?.bgGap : Colors.whiteColor};
   shadow-color: '#171717';
   shadow-offset:{
-    width: 0,
-    height: 1
+    width: 0;
+    height: 1;
   };
-  shadow-opacity: 0.8;
-  shadow-radius: 1;
+  shadow-opacity: 0.8px;
+  shadow-radius: 1px;
   elevation:1;
 `;
 

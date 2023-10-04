@@ -15,7 +15,7 @@ export const userSlice = createSlice({
     name: 'noteslice',
     initialState,
     reducers: {
-        createNoteStore: (state, action: PayloadAction<any[]>) => {
+        createNoteStore: (state, action: PayloadAction<any>) => {
             state.notestore = [...state.notestore, action.payload]
         },
 

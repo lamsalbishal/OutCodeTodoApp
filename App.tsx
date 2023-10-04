@@ -6,6 +6,7 @@ import { navigationRef } from './src/utils/navUtils';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import HomeScreen from './src/page/HomeScreen';
 import SplashScreen from './src/page/SplashScreen';
+import CreateEditNoteScreen from './src/page/CreateEditNoteScreen';
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
           initialRouteName={'SplashScreen'}>
           <Stack.Screen name="SplashScreen" component={SplashScreen} />
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name='CreateEditNoteScreen' component={CreateEditNoteScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </GestureHandlerRootView>
