@@ -12,12 +12,16 @@ import { Colors } from '../../const/Colors';
 
 interface Props {
     item: {
+        id: string,
         timeStamp: string,
         note: string,
         status: boolean
-    }
+    },
+    onClickCheckBox: () => void,
+    editToNavigae: () => void
+    onDeleleteConfirmBox: () => void
 }
-const NoteBox: React.FC<Props> = ({ item }) => {
+const NoteBox: React.FC<Props> = ({ item, onClickCheckBox, editToNavigae, onDeleleteConfirmBox }) => {
     return (
         <PaddingAllGap ptGap={hp(3)}>
             <BorderWithRadius bgGap={Colors.lightDimWhiteColor} crGap={Colors.lightDimWhiteColor} brGap={hp(1.5)} phGap={wp(2)} pvGap={hp(1)} >
@@ -27,18 +31,20 @@ const NoteBox: React.FC<Props> = ({ item }) => {
                 </PaddingHVGap>
                 <FlexSBWrapper>
                     <FlexRAWrap>
-                        {item?.status ?
-                            <MIcon name="checkbox-outline" size={20} />
-                            :
-                            <MIcon name="checkbox-blank-outline" size={20} />
-                        }
+                        <TouchableOpacity onPress={() => onClickCheckBox()}>
+                            {item?.status ?
+                                <MIcon color={Colors.blackColor} name="checkbox-outline" size={hp(2.5)} />
+                                :
+                                <MIcon name="checkbox-blank-outline" size={hp(2.5)} />
+                            }
+                        </TouchableOpacity>
                         <Text plGap={wp(1)}>{moment(item?.timeStamp).format("ddd, hA YY")}</Text>
                     </FlexRAWrap>
                     <FlexRAWrap>
-                        <TouchableOpacity style={{ width: wp(10) }}>
+                        <TouchableOpacity onPress={() => editToNavigae()} style={{ width: wp(10) }}>
                             <AIcon name="edit" size={hp(2.5)} />
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ width: wp(8) }}>
+                        <TouchableOpacity onPress={() => onDeleleteConfirmBox()} style={{ width: wp(8) }}>
                             <MIcon name="delete" size={hp(2.5)} />
                         </TouchableOpacity>
 

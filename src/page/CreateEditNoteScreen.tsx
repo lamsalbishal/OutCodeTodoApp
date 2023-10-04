@@ -24,7 +24,7 @@ import Toolbar from '../component/Toolbar';
 import { CustomButton } from '../component/CustomButton';
 import moment from 'moment';
 import { Colors } from '../const/Colors';
-import { createNoteStore } from '../store/reducers/NoteSlice';
+import { createNoteStore, updateNoteStore } from '../store/reducers/NoteSlice';
 import { goBack } from '../utils/navUtils';
 import { genRandomId } from '../features/CommonFeature';
 
@@ -39,19 +39,31 @@ const CreateEditNoteScreen = ({ route }: { route: any }) => {
     });
 
 
-
-
     const createNewEditNote = async (values: any) => {
         const CurrentDate = moment().format();
-        const noteObj = {
-            id: genRandomId(6),
-            note: values.note,
-            status: false,
-            timeStamp: CurrentDate,
-            updateTimeStamp: CurrentDate,
+        if (status) {
+            let updateNoteObj = {
+                id: updateData.id,
+                note: values.note,
+                status: updateData?.status,
+                timeStamp: updateData?.timeStamp,
+                updateTimeStamp: CurrentDate,
+            }
+            dispatch(updateNoteStore(updateNoteObj))
+            ToastAndroid.show('Update Successfully', ToastAndroid.BOTTOM)
+        } else {
+            let createNoteObj = {
+                id: genRandomId(6),
+                note: values.note,
+                status: false,
+                timeStamp: CurrentDate,
+                updateTimeStamp: CurrentDate,
+            }
+            dispatch(createNoteStore(createNoteObj))
+            ToastAndroid.show('Create Successfully', ToastAndroid.BOTTOM)
         }
-        dispatch(createNoteStore(noteObj))
-        ToastAndroid.show('Create Successfully', ToastAndroid.BOTTOM)
+
+       
         goBack()
     };
 
@@ -81,10 +93,8 @@ const CreateEditNoteScreen = ({ route }: { route: any }) => {
                         }) => (
                             <ViewWrapper>
 
-                                <Text small ptGap={hp(3)}>For your reminder, save a note.</Text>
+                                <Text small ptGap={hp(3)}>{`For your reminder, ${status ? 'update' : 'save'} a note.`}</Text>
                                 <PaddingAllGap ptGap={hp(2)}>
-
-
                                     <InputTextField
                                         bwGap={1}
                                         plGap={wp(5)}
@@ -97,7 +107,6 @@ const CreateEditNoteScreen = ({ route }: { route: any }) => {
                                         multiline
 
                                     />
-
                                     {errors.note && (
                                         <Text
                                             crColor={Colors.redColor}

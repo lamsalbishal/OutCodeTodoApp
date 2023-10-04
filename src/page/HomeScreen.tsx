@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { ScrollView, View, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, View, StyleSheet, Modal } from 'react-native';
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
@@ -16,24 +16,67 @@ import ListComponent from '../features/ListComponent';
 import { CustomButton } from '../component/CustomButton';
 import { navigate } from '../utils/navUtils';
 import { Colors } from '../const/Colors';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import NoRecordFound from '../component/NoRecordFound';
 import NoteBox from '../component/HomeComponent/NoteBox';
+import { statusChangeNote } from '../store/reducers/NoteSlice';
+import DeleteConfirmModal from '../component/DeleteConfirmModal';
+import { deleteNoteStore } from '../store/reducers/NoteSlice';
 
 
 
 
 
 const HomeScreen = () => {
+    const dispatch = useDispatch()
+    const [open, setOpen] = useState(false);
+    const [deleteID, setDeleteID] = useState('')
+
     const noteList = useSelector((state: RootState) => state.persistedReducer.noteReducer.notestore);
+
+    const completeOrNot = (idNo: string) => {
+        dispatch(statusChangeNote(idNo))
+    }
+
+    const editToNavigae = (item: any) => {
+        navigate('CreateEditNoteScreen', {
+            status: true,
+            updateData: {
+                id: item.id,
+                note: item.note,
+                status: item.status,
+                timeStamp: item.timeStamp,
+
+            },
+        })
+    }
+
+    const onDeleleteConfirmBox = (deleteID: string) => {
+        setDeleteID(deleteID)
+        setOpen(true)
+    }
+
 
     const renderItems = ({ item, index }: { item: any; index: any }) => {
         return (
-            <NoteBox item={item} />
+            <NoteBox
+                item={item}
+                onClickCheckBox={() => completeOrNot(item?.id)}
+                editToNavigae={() => editToNavigae(item)}
+                onDeleleteConfirmBox={() => onDeleleteConfirmBox(item?.id)}
+            />
         );
     };
 
+    const handleBackdropPress = () => {
+        setOpen(false)
+    }
+
+    const deleteNote = () => {
+        dispatch(deleteNoteStore(deleteID))
+        setOpen(false)
+    }
     return (
         <Container>
             <PaddingHVGap pvGap={hp(1.8)} phGap={wp(3)} >
@@ -69,6 +112,16 @@ const HomeScreen = () => {
                     title="Create Note"
                 />
             </View>
+
+            <Modal
+                animationType="slide"
+                visible={open}
+                transparent
+                onRequestClose={() => handleBackdropPress()}
+            >
+
+                <DeleteConfirmModal cancleModal={() => setOpen(false)} confirmModal={() => deleteNote()} />
+            </Modal>
 
         </Container>
     );
