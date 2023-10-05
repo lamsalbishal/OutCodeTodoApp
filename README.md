@@ -32,7 +32,7 @@ After starting a project, you'll make notes, edit them, delete them, and make su
 ## App Screenshots :
 
 <p>
-  <img src="app_screenshoot/spalsh_screen.jpeg" width="24%">
+  <img src="app_screenshoot/splash_screen.jpeg" width="24%">
   <img src="app_screenshoot/home_screen.jpeg" width="24%">
   <img src="app_screenshoot/list_screen.jpeg" width="24%">
   <img src="app_screenshoot/update_screen.jpeg" width="24%">
