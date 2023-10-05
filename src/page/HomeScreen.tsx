@@ -34,6 +34,8 @@ const HomeScreen = () => {
     const [deleteID, setDeleteID] = useState('')
 
     const noteList = useSelector((state: RootState) => state.persistedReducer.noteReducer.notestore);
+    const sortedArray = noteList.map(noteList.pop, [...noteList]);
+
 
     const completeOrNot = (idNo: string) => {
         dispatch(statusChangeNote(idNo))
@@ -59,6 +61,7 @@ const HomeScreen = () => {
 
 
     const renderItems = ({ item, index }: { item: any; index: any }) => {
+
         return (
             <NoteBox
                 item={item}
@@ -84,11 +87,12 @@ const HomeScreen = () => {
             </PaddingHVGap>
             <HrLine />
             <ScrollView showsVerticalScrollIndicator={false}>
-                {noteList.length > 0 ?
+                {sortedArray.length > 0 ?
                     <PaddingHVGap phGap={wp(3)}>
+
                         <PaddingAllGap pbGap={hp(10)}>
                             <ListComponent
-                                data={noteList}
+                                data={sortedArray}
                                 renderItem={renderItems}
                                 keyExtractor={item => item.id}
                             />
