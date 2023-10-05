@@ -25,6 +25,10 @@ Third, Install Package by cmd yarn
 
 After starting a project, you'll make notes, edit them, delete them, and make sure they're complete as well.
 
+## For Testing
+ 
+ Run yarn test
+
 ## App Screenshots :
 
 <p>
@@ -33,5 +37,10 @@ After starting a project, you'll make notes, edit them, delete them, and make su
   <img src="app_screenshoot/list_screen.jpeg" width="24%">
   <img src="app_screenshoot/update_screen.jpeg" width="24%">
   <img src="app_screenshoot/delete_screen.jpeg" width="24%">
-  
+
+  <img src="app_screenshoot/ios_home_screenshoot.jpeg" width="24%">
+  <img src="app_screenshoot/ios_create_screenshoot.jpeg" width="24%">
+  <img src="app_screenshoot/ios_update_screenshoot.jpeg" width="24%">
+  <img src="app_screenshoot/ios_delete_screenshoot.jpeg" width="24%">
+ 
 </p>
